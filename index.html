@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dev Patel Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+body{margin:0}img{max-width:100%}
+/* Layout: one reading column; each case study opens with a sign-like label plate, then a fact strip, then short sections. */
+:root {
+  --bg: #f6f7f8;
+  --surface: #ffffff;
+  --fg: #1b1f24;
+  --muted: #56606b;
+  --line: #dde1e6;
+  --accent: #b3261e;      /* parking-sign red */
+  --accent-2: #1e6b47;    /* parking-sign green */
+  --plate-fg: #ffffff;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14171b; --surface: #1c2026; --fg: #e7eaee; --muted: #a2acb7; --line: #2e343c;
+    --accent: #ef6b60; --accent-2: #5cc192; --plate-fg: #14171b; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14171b; --surface: #1c2026; --fg: #e7eaee; --muted: #a2acb7; --line: #2e343c;
+  --accent: #ef6b60; --accent-2: #5cc192; --plate-fg: #14171b; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 1.08rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 46rem; margin: 0 auto; padding-block: 3rem 4rem; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.2rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 800; }
+h3 { font-size: 1.12rem; font-weight: 700; margin-top: 1.8rem; }
+p { margin: 0.6rem 0 0; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.label { font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+header .intro { font-size: 1.2rem; color: var(--muted); margin-top: 0.9rem; max-width: 38rem; }
+.contact { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin-top: 1.1rem; font-size: 0.98rem; }
+nav.toc { margin-top: 2.2rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 1rem; display: grid; gap: 0.55rem; }
+nav.toc a { color: var(--fg); text-decoration: none; display: flex; gap: 0.8rem; align-items: baseline; }
+nav.toc a:hover span.t { text-decoration: underline; }
+nav.toc .n { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); }
+nav.toc .k { color: var(--muted); font-size: 0.95rem; }
+
+.case { margin-top: 4rem; }
+.plate {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--accent); color: var(--plate-fg);
+  font-family: var(--display); font-weight: 800; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.35rem 0.7rem; border-radius: 3px;
+}
+.plate.green { background: var(--accent-2); }
+.case h2 { margin-top: 0.8rem; }
+.case .sub { color: var(--muted); font-size: 1.12rem; margin-top: 0.5rem; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 0.9rem 1.5rem; margin-top: 1.4rem; padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+.facts div { min-width: 0; }
+.facts .v { font-size: 0.97rem; margin-top: 0.15rem; }
+ul { margin: 0.6rem 0 0; padding-left: 1.2rem; }
+li { margin-top: 0.35rem; }
+li::marker { color: var(--accent); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+.stat { border-left: 3px solid var(--accent-2); padding: 0.2rem 0 0.2rem 0.8rem; }
+.stat b { font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; display: block; line-height: 1.1; }
+.stat span { font-size: 0.92rem; color: var(--muted); }
+.stat.warn { border-left-color: var(--accent); }
+blockquote { margin: 1.2rem 0 0; padding: 0.2rem 0 0.2rem 1rem; border-left: 3px solid var(--line); font-style: italic; color: var(--fg); }
+blockquote cite { display: block; font-style: normal; font-size: 0.9rem; color: var(--muted); margin-top: 0.2rem; }
+figure { margin: 1.2rem 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
+figcaption { font-size: 0.9rem; color: var(--muted); margin-top: 0.4rem; }
+.pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; }
+.photos img { aspect-ratio: 3 / 4; object-fit: cover; }
+@media (max-width: 640px) { .pairs, .photos { grid-template-columns: 1fr; } .photos img { aspect-ratio: auto; } }
+.decision { margin-top: 0.9rem; }
+.decision b { display: block; }
+.principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.6rem 1.2rem; margin-top: 0.8rem; padding: 0; list-style: none; }
+.principles li { margin: 0; padding: 0.55rem 0; border-top: 1px solid var(--line); }
+.principles li b { display: block; }
+.principles li span { font-size: 0.93rem; color: var(--muted); }
+footer { margin-top: 4rem; padding-top: 1.4rem; border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--muted); }
+footer h3 { color: var(--fg); margin-top: 0; font-size: 1rem; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="label">UX Portfolio</div>
+  <h1>Dev Patel</h1>
+  <p class="intro">MS Computer Science student at DePaul University. I came into HCI 440 knowing nothing about UX and left genuinely interested in UX research: watching how people actually use things, then designing around what I see. I'm still exploring where my career goes, possibly game development, but I plan to bring this way of working wherever I end up.</p>
+  <div class="contact" id="contact">
+    <span>Chicago area, IL</span>
+    <span>Email: <span style="user-select: all">dpate388@depaul.edu</span></span>
+  </div>
+  <nav class="toc" aria-label="Case studies">
+    <a href="#parking"><span class="n">01</span><span><span class="t">Parking Sign Assistant</span> <span class="k">· team UX project, research to tested prototype</span></span></a>
+    <a href="#library"><span class="n">02</span><span><span class="t">Finding Your Way in a Public Library</span> <span class="k">· field observation</span></span></a>
+    <a href="#unobtrusive"><span class="n">03</span><span><span class="t">Unobtrusive Design</span> <span class="k">· a personal design theory from everyday objects</span></span></a>
+    <a href="#ai"><span class="n">+</span><span><span class="t">How I Use AI in UX Work</span></span></a>
+  </nav>
+</header>
+
+<!-- ================= CASE 1 ================= -->
+<section class="case" id="parking">
+  <span class="plate">No parking · 7–9 AM</span>
+  <h2>Parking Sign Assistant</h2>
+  <p class="sub">Helping Chicago drivers understand stacked parking signs, and admitting it when the app can't be sure.</p>
+  <div class="facts">
+    <div><div class="label">My role</div><div class="v">Concept lead for sign scanning, usability test facilitator, presenter</div></div>
+    <div><div class="label">Team</div><div class="v">4 students, HCI 440</div></div>
+    <div><div class="label">Timeline</div><div class="v">Sept–Nov 2026, 4 milestones</div></div>
+    <div><div class="label">Tools &amp; methods</div><div class="v">Interviews, scenarios, Figma prototype, think-aloud testing</div></div>
+  </div>
+
+  <h3>The problem</h3>
+  <p>The parking space is right there. The hard part is the signs. One pole can carry three or four rules, arrows decide which part of the curb a sign covers, and a stay that is legal at 10 AM can be illegal an hour later. Drivers don't need help finding a space here; they need help answering one question: can I park on <em>this</em> curb, at <em>this</em> time?</p>
+
+  <h3>What I did</h3>
+  <ul>
+    <li>Proposed the <b>Parking Sign Scanner</b> concept: photograph the sign stack, and the app turns short sign text into plain full sentences. It became the first step of our final flow.</li>
+    <li>Facilitated our first usability session and observed two others.</li>
+    <li>Presented the conceptual design, interaction design and result-state sections of our final presentation.</li>
+  </ul>
+
+  <h3>Research</h3>
+  <p>We interviewed 8 drivers and ran a sign-reading exercise with 2 of them. Three findings shaped everything after:</p>
+  <ul>
+    <li><b>People read a stack, not a sign.</b> They compare every sign on the pole before deciding.</li>
+    <li><b>Position changes meaning.</b> Arrows and exact curb boundaries create the most doubt.</li>
+    <li><b>A confident wrong answer is worse than none.</b> When coverage is unclear, a yes/no answer can lead to a ticket or a tow.</li>
+  </ul>
+  <p>Limit: the sign exercise had only 2 people, so we treated it as direction, not proof.</p>
+
+  <h3>Design decisions and why</h3>
+  <div class="decision"><b>Combine four concepts instead of picking a winner.</b> Each teammate proposed a different idea: time and zone entry, my sign scanner, rule verification, and a visual timeline with reminders. We checked each against the research and joined the strongest parts into one flow: upload photos, review what was read, confirm curb and time, see the result.</div>
+  <div class="decision"><b>Three honest result states instead of yes/no.</b> "Appears Permitted," "Restricted," and "Unable to Confirm." This came straight from the finding that false certainty is the real risk.</div>
+  <div class="decision"><b>Design the failure paths, not just the happy path.</b> We built recovery screens for a blurry photo, a misread sign, denied GPS and conflicting arrows.</div>
+
+  <h3>Usability testing</h3>
+  <p>4 Chicago street-parking drivers, 5 realistic tasks, think-aloud, clickable Figma prototype. OCR, GPS and parking rules were simulated, so we tested whether people understood the interface, not whether it reads real signs correctly.</p>
+  <div class="stats">
+    <div class="stat"><b>20/20</b><span>tasks completed without hints</span></div>
+    <div class="stat warn"><b>4</b><span>errors on "fix a misread sign," the most of any task</span></div>
+    <div class="stat warn"><b>3.75/5</b><span>confidence in what results mean, our lowest rating</span></div>
+    <div class="stat"><b>4.75/5</b><span>understood when the app wasn't sure</span></div>
+  </div>
+  <p>Everyone finished, but finishing wasn't the same as finding it easy. The hesitation, wrong taps and doubts told the real story. One participant read "Appears Permitted" as a guarantee.</p>
+  <blockquote>"If the app can't figure out the sign, I'm not going to guess."<cite>Participant 1, in the session I facilitated, while comparing two conflicting arrows</cite></blockquote>
+  <p>As facilitator, the hardest part was not helping. When someone struggles you want to step in, but helping one person in the moment costs the data that helps everyone else.</p>
+
+  <h3>What changed after testing</h3>
+  <p>Each change traces back to a specific finding. Tested version on the left of each pair, revised version on the right.</p>
+  <div class="pairs">
+    <figure><img src="img/r1.jpg" alt="Before and after of the scan error screen: the revised version places the source sign and the app's incorrect reading side by side with an Edit button." loading="lazy"><figcaption><b>Misread sign:</b> source sign and the app's reading now sit side by side (4 errors on this task).</figcaption></figure>
+    <figure><img src="img/r2.jpg" alt="Before and after of the Unable to Confirm screen: the revised version adds a diagram of Sign A, Sign B and the car, and says not to use the result as permission." loading="lazy"><figcaption><b>Conflicting arrows:</b> a simple curb diagram, suggested by Participant 1 (hardest task, 4/5 difficulty).</figcaption></figure>
+    <figure><img src="img/r3.jpg" alt="Before and after of the location and time screen: one long form becomes two short steps with quick choices." loading="lazy"><figcaption><b>Location form:</b> one long form split into two steps. "Too much, especially in cold weather."</figcaption></figure>
+    <figure><img src="img/r4.jpg" alt="Before and after of the results screen: the revised version puts NOT GUARANTEED, check posted signs, directly under Appears Permitted." loading="lazy"><figcaption><b>Results:</b> "Not guaranteed, check posted signs" moved right under the result.</figcaption></figure>
+  </div>
+
+  <h3>What I'd do next</h3>
+  <ul>
+    <li>Retest the revised screens with real photos of Chicago signs whose correct rules are already known. The changes are in Figma but haven't been retested yet.</li>
+    <li>Redesign the blurry-photo screen, which is still only a recommendation.</li>
+    <li>Plan the whole project's phases up front, so the last round of testing has room in the schedule.</li>
+  </ul>
+  <p>In the real world this would make the most sense as a feature inside an existing parking app, built on verified city rule data, with "Unable to Confirm" kept as a non-negotiable.</p>
+</section>
+
+<!-- ================= CASE 2 ================= -->
+<section class="case" id="library">
+  <span class="plate green">Floors 1–2 ↑ · Elevators →</span>
+  <h2>Finding Your Way in a Public Library</h2>
+  <p class="sub">A field observation of a large, multi-story public library in downtown Chicago.</p>
+  <div class="facts">
+    <div><div class="label">My role</div><div class="v">Solo researcher</div></div>
+    <div><div class="label">Method</div><div class="v">Participant and non-participant observation</div></div>
+    <div><div class="label">Time in field</div><div class="v">2 sessions, 145 minutes</div></div>
+    <div><div class="label">Who</div><div class="v">5 observed patrons (anonymous), staff, and me</div></div>
+  </div>
+
+  <h3>The question</h3>
+  <p>How do people get from what they want ("that book," "the 7th floor," "a restroom") to the right place in a big library? I didn't name the library, because the goal was to understand the experience, not to criticize one place.</p>
+
+  <h3>How I did it</h3>
+  <p>In the first session I used the library as a normal patron with real goals and wrote down every place I got stuck. In the second I watched five other patrons at the elevators, catalog computers and reading areas, without interviewing anyone or photographing people. I organized notes by actions, tools, interruptions and communication.</p>
+
+  <h3>Key insights</h3>
+  <div class="decision"><b>A one-step trip is really three steps.</b> The entrance escalators stop at the 2nd floor. To go higher you have to find a separate set of elevators, and nothing at the entrance says so.</div>
+  <div class="decision"><b>Mistakes can't be undone.</b> In the elevator lobby, another patron pressed Down when he wanted to go up. The call couldn't be cancelled, so the elevator went to the 6th floor first and we both waited far longer than we should have.</div>
+  <div class="decision"><b>The right tool was there; people just didn't start with it.</b> I knew a book's title but not its author, and the shelves are sorted by author. I wandered, asked staff, and searched on my phone. Later I watched another patron find his book in seconds on the catalog computer.</div>
+  <div class="decision"><b>Rules show up too late.</b> A gaming room's "teens only" rule and the restroom location were only visible once you were already there.</div>
+
+  <h3>Design opportunity</h3>
+  <p>The library works well for one-step tasks like returning a book. It gets hard when a task crosses floors or when you don't know where to start. The opportunity is guiding people from what they want to the right place: say at the entrance that the escalators stop at 2, point people to the catalog first, and post rules on the way to a room, not only at its door.</p>
+
+  <h3>What I learned</h3>
+  <p>I'd been to this library many times and still got stuck on simple things. Being familiar with a place isn't the same as understanding it. And my best observation, the elevator mix-up, happened by chance, which is why time in the field beats a fixed checklist.</p>
+
+  <h3>Limits and next steps</h3>
+  <p>Both sessions were on a weekend afternoon, and much of the first session is my own experience as a returning visitor. Next I'd observe busier weekday times and talk with first-time visitors and staff.</p>
+</section>
+
+<!-- ================= CASE 3 ================= -->
+<section class="case" id="unobtrusive">
+  <span class="plate">Check posted signs</span>
+  <h2>Unobtrusive Design</h2>
+  <p class="sub">A personal design theory built from eight everyday things: good design stays out of the way while it works, and speaks up when it matters.</p>
+  <div class="facts">
+    <div><div class="label">My role</div><div class="v">Solo: observation, analysis, theory</div></div>
+    <div><div class="label">Inputs</div><div class="v">4 physical + 4 digital items I use daily</div></div>
+    <div><div class="label">Output</div><div class="v">6 principles, 2 case studies</div></div>
+    <div><div class="label">Grounded in</div><div class="v">Norman, Nielsen, Rams, Universal Design</div></div>
+  </div>
+
+  <h3>The pattern</h3>
+  <p>I noticed design mostly when it failed: a water bottle cap that gives no sign it's sealed, so I re-tighten it every time; Google Maps ending a trip at the right address but the wrong entrance; a phone document editor that hides most features behind three dots. A bad design does the reverse of a good one: it stays quiet when I need information and demands attention when it should stay out of the way.</p>
+
+  <h3>Six principles</h3>
+  <ul class="principles">
+    <li><b>Confirm the Finish</b><span>Signal clearly when a task is done or correct.</span></li>
+    <li><b>Show the Next Step</b><span>Sequence information so people know what to do now.</span></li>
+    <li><b>Design for the Whole Day</b><span>Test in real conditions, not the first five minutes.</span></li>
+    <li><b>Make It Last</b><span>Stay useful instead of needing replacement.</span></li>
+    <li><b>Design for the Hardest Hands and Eyes</b><span>Start from the user under the most strain.</span></li>
+    <li><b>Stay in the Background</b><span>Support the activity without demanding attention.</span></li>
+  </ul>
+
+  <div class="photos">
+    <figure><img src="img/bottle.jpg" alt="A stainless steel water bottle with a screw cap and carry loop on a wooden desk." loading="lazy"><figcaption>No signal the cap is sealed.</figcaption></figure>
+    <figure><img src="img/bike-mount.jpg" alt="A phone mount clamped to the center of a bike handlebar." loading="lazy"><figcaption>Maps on my bike: voice guidance, phone in my line of sight.</figcaption></figure>
+    <figure><img src="img/cables.jpg" alt="A desk with several tangled charging cables, a laptop power brick and a full power strip." loading="lazy"><figcaption>Four chargers, every socket taken.</figcaption></figure>
+  </div>
+
+  <h3>Two case studies</h3>
+  <div class="decision"><b>Works: Google Maps on my bike.</b> I set the destination once, turn on voice guidance, and listen through my earbuds while the phone sits on the handlebar mount. When I glance down, only the turn arrow and the blue route stand out. It fails when the voice comes too late and I miss a turn, or when it says "arrived" at the wrong entrance.</div>
+  <div class="decision"><b>Fails: my multi-device charging setup.</b> Laptop, phone, headphones and a game controller each have their own charger. The cables tangle, look alike, and take every outlet. The root cause is that each charger was designed alone, never as part of a system. My fixes: one multi-port station, one shared connector, and color-coded cable ends.</div>
+
+  <h3>What I'd do next</h3>
+  <p>My accessibility principle was applied to people I hadn't actually observed. Next time I'd test it with someone who has limited grip or low vision instead of imagining their experience.</p>
+</section>
+
+<section class="case" id="ai">
+  <span class="plate green">Verify before you park</span>
+  <h2>How I Use AI in UX Work</h2>
+  <p class="sub">AI drafts, I verify. Every claim about users has to trace back to a real participant or my own notes.</p>
+  <div class="decision"><b>Where it went wrong.</b> For my design theory project, I first used an AI tool to polish my list of everyday objects. It added details I had never actually experienced, so I threw that version out and rewrote everything from my own notes.</div>
+  <div class="decision"><b>Where it helped.</b> Summarizing course material, organizing notes, and turning my ideas into clear writing. Even a good idea can be hard to put into words.</div>
+  <div class="decision"><b>Where I keep it out.</b> Generating the ideas themselves. Ideas come from real experience and emotion, which AI can't replace.</div>
+  <p>I disclose AI use on everything I submit, listing what the tool did and what was my own work.</p>
+</section>
+
+<footer>
+  <h3>About this portfolio</h3>
+  <p>Participants are anonymized (P1, P2…). Teammates' work on the Parking Sign Assistant is described as a team effort; the roles listed as mine are my own.</p>
+  <p><b>AI disclosure:</b> I used Claude (Anthropic) to organize my coursework and answers into this page and to help with wording and layout. The projects, observations, photos, decisions and reflections are my own and my team's.</p>
+</footer>
+</div>
+</body>
+</html>
